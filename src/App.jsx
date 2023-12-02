@@ -5,7 +5,7 @@ import { Dia } from './Dia.jsx'
 
 function App() {
   const [city, setCity] = useState("");
-  const API_WEATHER = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`
+  const API_WEATHER = `http://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`
   const API_OpenWeather = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${import.meta.env.VITE_API_KEY_OW}`
   const API_WALLPAPER = `https://api.unsplash.com/search/photos?query=+${city}&client_id=${import.meta.env.VITE_API_KEY_BG}`
   const dia = [
