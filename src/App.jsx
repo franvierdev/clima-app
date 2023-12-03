@@ -124,7 +124,7 @@ function App() {
   return (
     <>
       <form onSubmit={handleSubmit} className={`grid grid-cols-4 grid-rows-4 gap-y-4 w-[800px] h-[600px] rounded-2xl border border-white bg-slate-100/10 shadow-2xl `}
-        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), transparent, rgba(0, 0, 0, 0.6)), url(${weather.background + w1})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
+        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), transparent, rgba(0, 0, 0, 0.6)), url(${weather.background ? weather.background + w1 : ""})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
       >
         {weather.city && (
           <div className=' inline-block mb-auto px-3 py-2  rounded-ee-2xl rounded-ss-2xl font-bold text-white text-3xl text-shadow shadow-xl bg-slate-100/60' > <p className="">{weather.city}</p><p className='text-sm'> {weather.country}</p>
