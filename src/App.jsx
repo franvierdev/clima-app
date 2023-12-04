@@ -4,9 +4,11 @@ import './App.css'
 import { Dia } from './Dia.jsx'
 
 function App() {
+
   const [city, setCity] = useState("");
+  const [fondo, setFondo] = useState("");
+  const [weather, setWeather] = useState("")
   const API_WEATHER = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`
-  const API_OpenWeather = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${import.meta.env.VITE_API_KEY_OW}`
   const API_WALLPAPER = `https://api.unsplash.com/search/photos?query=+${city}&client_id=${import.meta.env.VITE_API_KEY_BG}`
   const dia = [
     "Domingo",
@@ -35,7 +37,6 @@ function App() {
     error: false,
     message: "",
   });
-  const [weather, setWeather] = useState("")
   const [openW, setOpenW] = useState("")
 
 
@@ -48,16 +49,17 @@ function App() {
     })
     const response = await fetch(`${API_WEATHER}${city}`)
     const response2 = await fetch(`${API_WALLPAPER}`)
-    const response3 = await fetch(`${API_OpenWeather}`)
     const data = await response.json()
     const data2 = await response2.json()
+    const API_OpenWeather = `https://api.openweathermap.org/data/2.5/forecast?q=${data.location.name}&appid=${import.meta.env.VITE_API_KEY_OW}`
+    const response3 = await fetch(`${API_OpenWeather}`)
     const data3 = await response3.json()
 
     try {
 
       if (!city.trim()) throw { message: "No existe esta ciudad" }
 
-      if (data.error || data2.error || data3.error) throw { message: "No se encontró ninguna ubicación coincidente." };
+      if (data.error || data2.error) throw { message: "No se encontró ninguna ubicación coincidente." };
 
       setWeather({
         city: data.location.name,
@@ -68,38 +70,39 @@ function App() {
         icon: data.current.condition.icon,
         conditionText: data.current.condition.text,
         localTime: new Date(data.location.localtime),
-        background: data2.results[0].urls.raw
-      })
-      setOpenW({
-
-        fecha1: new Date(data3.list[5].dt_txt),
-        fecha2: new Date(data3.list[13].dt_txt),
-        fecha3: new Date(data3.list[21].dt_txt),
-        fecha4: new Date(data3.list[29].dt_txt),
-        tempC1: data3.list[5].main.temp - 273.15,
-        tempC2: data3.list[13].main.temp - 273.15,
-        tempC3: data3.list[21].main.temp - 273.15,
-        tempC4: data3.list[29].main.temp - 273.15,
-        humedad1: data3.list[5].main.humidity,
-        humedad2: data3.list[13].main.humidity,
-        humedad3: data3.list[21].main.humidity,
-        humedad4: data3.list[29].main.humidity,
-        vientos1: data3.list[5].wind.speed,
-        vientos2: data3.list[13].wind.speed,
-        vientos3: data3.list[21].wind.speed,
-        vientos4: data3.list[29].wind.speed,
 
       })
+      if (data3.list) {
+
+        setOpenW({
+          fecha1: new Date(data3.list[5].dt_txt),
+          fecha2: new Date(data3.list[13].dt_txt),
+          fecha3: new Date(data3.list[21].dt_txt),
+          fecha4: new Date(data3.list[29].dt_txt),
+          tempC1: data3.list[5].main.temp - 273.15,
+          tempC2: data3.list[13].main.temp - 273.15,
+          tempC3: data3.list[21].main.temp - 273.15,
+          tempC4: data3.list[29].main.temp - 273.15,
+          humedad1: data3.list[5].main.humidity,
+          humedad2: data3.list[13].main.humidity,
+          humedad3: data3.list[21].main.humidity,
+          humedad4: data3.list[29].main.humidity,
+          vientos1: data3.list[5].wind.speed,
+          vientos2: data3.list[13].wind.speed,
+          vientos3: data3.list[21].wind.speed,
+          vientos4: data3.list[29].wind.speed,
+
+        })
+      }
+      else {
+        setOpenW("")
+      }
 
 
 
 
 
 
-      console.log(data3)
-      console.log(openW.tempC1)
-
-      console.log(data.current.temp_c)
       console.log(data.location.localtime)
 
 
@@ -114,17 +117,27 @@ function App() {
       })
 
     }
+    finally {
 
+      if (data2.results[1]) {
 
-
-
-
+        setFondo({
+          background: data2.results[0].urls.raw
+        })
+      }
+      else {
+        setFondo({
+          background: "https://images.unsplash.com/photo-1560977501-7cb367eccebe?ixid=M3w1MjUxMDd8MHwxfHNlYXJjaHwxfHx0ZXJtb21ldHJvJTNGfGVufDB8fHx8MTcwMTYyMzAxNnww\u0026ixlib=rb-4.0.3"
+        })
+      }
+      console.log(fondo.background)
+    }
 
   }
   return (
     <>
       <form onSubmit={handleSubmit} className={`grid grid-cols-4 grid-rows-4 gap-y-4 w-[800px] h-[600px] rounded-2xl border border-white bg-slate-100/10 shadow-2xl `}
-        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), transparent, rgba(0, 0, 0, 0.6)), url(${weather.background ? weather.background + w1 : ""})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
+        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), transparent, rgba(0, 0, 0, 0.6)), url(${fondo.background + w1})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
       >
         {weather.city && (
           <div className=' inline-block mb-auto px-3 py-2  rounded-ee-2xl rounded-ss-2xl font-bold text-white text-3xl text-shadow shadow-xl bg-slate-100/60' > <p className="">{weather.city}</p><p className='text-sm'> {weather.country}</p>
@@ -160,7 +173,7 @@ function App() {
             </div>
           </div>
         )}
-        {weather.city && (
+        {openW.fecha1 && (
           <div className='row-start-4 col-span-4 justify-between border flex rounded-es-2xl rounded-ee-2xl bg-slate-100/70'>
             <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold border-e-2'>
               <p className='border border-x-0 border-b-2  text-lg'>{dia[openW.fecha1.getDay()]}  {openW.fecha1.getDate()}</p>
@@ -182,7 +195,7 @@ function App() {
                 <p className='text-xs font-semibold mt-1 me-auto ps-7'> vientos </p>
                 <div className='flex'>
 
-                  <p className=''>{openW.vientos1}</p>
+                  <p className=''>{openW.vientos1.toFixed(1)}</p>
                   <p className='text-xs font-normal'>km/h</p>
                 </div>
 
@@ -209,7 +222,7 @@ function App() {
                 <p className='text-xs font-semibold mt-1 me-auto ps-7'> vientos </p>
                 <div className='flex'>
 
-                  <p className=''>{openW.vientos2}</p>
+                  <p className=''>{openW.vientos2.toFixed(1)}</p>
                   <p className='text-xs font-normal'>km/h</p>
                 </div>
 
@@ -236,7 +249,7 @@ function App() {
                 <p className='text-xs font-semibold mt-1 me-auto ps-7'> vientos </p>
                 <div className='flex'>
 
-                  <p className=''>{openW.vientos3}</p>
+                  <p className=''>{openW.vientos3.toFixed(1)}</p>
                   <p className='text-xs font-normal'>km/h</p>
                 </div>
 
@@ -263,7 +276,7 @@ function App() {
                 <p className='text-xs font-semibold mt-1 me-auto ps-7'> vientos </p>
                 <div className='flex'>
 
-                  <p className=''>{openW.vientos4}</p>
+                  <p className=''>{openW.vientos4.toFixed(1)}</p>
                   <p className='text-xs font-normal'>km/h</p>
                 </div>
 
