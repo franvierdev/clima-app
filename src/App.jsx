@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-
-import { Dia } from './Dia.jsx'
+import Demo1 from './InputRadio.jsx'
 
 function App() {
 
   const [city, setCity] = useState("");
   const [fondo, setFondo] = useState("");
   const [weather, setWeather] = useState("")
+  const [hora, setHora] = useState("")
   const API_WEATHER = `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_API_KEY}&q=`
   const API_WALLPAPER = `https://api.unsplash.com/search/photos?query=+${city}&client_id=${import.meta.env.VITE_API_KEY_BG}`
   const dia = [
@@ -38,11 +38,13 @@ function App() {
     message: "",
   });
   const [openW, setOpenW] = useState("")
+  const [pm, setPm] = useState("")
 
 
   const w1 = "&w=1080"
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setHora("")
     setError({
       error: false,
       message: ""
@@ -75,22 +77,41 @@ function App() {
       if (data3.list) {
 
         setOpenW({
-          fecha1: new Date(data3.list[5].dt_txt),
-          fecha2: new Date(data3.list[13].dt_txt),
-          fecha3: new Date(data3.list[21].dt_txt),
-          fecha4: new Date(data3.list[29].dt_txt),
-          tempC1: data3.list[5].main.temp - 273.15,
-          tempC2: data3.list[13].main.temp - 273.15,
+
+          fecha1: new Date(data3.list[7].dt_txt),
+          fecha11: new Date(data3.list[1].dt_txt),
+          fecha12: new Date(data3.list[3].dt_txt),
+          fecha13: new Date(data3.list[5].dt_txt),
+          fecha14: new Date(data3.list[7].dt_txt),
+
+          fecha2: new Date(data3.list[15].dt_txt),
+          fecha3: new Date(data3.list[23].dt_txt),
+          fecha4: new Date(data3.list[31].dt_txt),
+          tempC1: data3.list[7].main.temp - 273.15,
+          tempC11: data3.list[1].main.temp - 273.15,
+          tempC12: data3.list[3].main.temp - 273.15,
+          tempC13: data3.list[5].main.temp - 273.15,
+          tempC14: data3.list[7].main.temp - 273.15,
+          tempC2: data3.list[14].main.temp - 273.15,
           tempC3: data3.list[21].main.temp - 273.15,
-          tempC4: data3.list[29].main.temp - 273.15,
-          humedad1: data3.list[5].main.humidity,
-          humedad2: data3.list[13].main.humidity,
+          tempC4: data3.list[28].main.temp - 273.15,
+          humedad1: data3.list[7].main.humidity,
+          humedad11: data3.list[1].main.humidity,
+          humedad12: data3.list[3].main.humidity,
+          humedad13: data3.list[5].main.humidity,
+          humedad14: data3.list[7].main.humidity,
+
+          humedad2: data3.list[14].main.humidity,
           humedad3: data3.list[21].main.humidity,
-          humedad4: data3.list[29].main.humidity,
-          vientos1: data3.list[5].wind.speed,
-          vientos2: data3.list[13].wind.speed,
+          humedad4: data3.list[28].main.humidity,
+          vientos1: data3.list[7].wind.speed,
+          vientos11: data3.list[1].wind.speed,
+          vientos12: data3.list[3].wind.speed,
+          vientos13: data3.list[5].wind.speed,
+          vientos14: data3.list[7].wind.speed,
+          vientos2: data3.list[14].wind.speed,
           vientos3: data3.list[21].wind.speed,
-          vientos4: data3.list[29].wind.speed,
+          vientos4: data3.list[28].wind.speed,
 
         })
       }
@@ -98,7 +119,8 @@ function App() {
         setOpenW("")
       }
 
-      console.log(data.location.localtime)
+
+
 
 
 
@@ -124,23 +146,26 @@ function App() {
         setFondo({
           background: "https://images.unsplash.com/photo-1560977501-7cb367eccebe?ixid=M3w1MjUxMDd8MHwxfHNlYXJjaHwxfHx0ZXJtb21ldHJvJTNGfGVufDB8fHx8MTcwMTYyMzAxNnww\u0026ixlib=rb-4.0.3"
         })
-      }
-      console.log(data2.results[0].urls.raw)
-    }
 
+      }
+
+      console.log(new Date(data3.list[0, 1].dt_txt))
+
+
+    }
   }
   return (
     <>
-      <form onSubmit={handleSubmit} className={`grid grid-cols-4 grid-rows-4 gap-y-4 w-[800px] h-[600px] rounded-2xl border border-white bg-slate-100/10 shadow-2xl `}
-        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), transparent, rgba(0, 0, 0, 0.6)), url(${fondo.background + w1})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
+      <form onSubmit={handleSubmit} className={`grid grid-cols-4 grid-rows-4 gap-y-4 w-[800px] h-[600px] rounded-2xl  bg-slate-100/10 shadow-2xl `}
+        style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1),  rgba(0, 0, 0, 0.2)), url(${fondo.background + w1})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
       >
         {weather.city && (
-          <div className=' inline-block mb-auto px-3 py-2  rounded-ee-2xl rounded-ss-2xl font-bold text-white text-3xl text-shadow shadow-xl bg-slate-100/60' > <p className="">{weather.city}</p><p className='text-sm'> {weather.country}</p>
+          <div className=' inline-block mb-auto me-auto px-3 py-2  rounded-ee-2xl rounded-ss-2xl font-bold text-white border border-slate-100/40 text-3xl text-shadow shadow-xl bg-slate-100/30 backdrop-blur-sm' > <p className="">{weather.city}</p><p className='text-sm'> {weather.country}</p>
           </div>
 
         )}
         <div className='flex justify-between col-start-4 '>
-          <div className={'px-2 ms-auto pt-1 rounded-se-2xl rounded-es-xl h-20 border-t-0 border-e-0 border border-white  bg-slate-100/60' + `${weather.city ? " shadow-xl" : " ml-auto"}`}>
+          <div className={'px-2 ms-auto pt-1 rounded-se-2xl rounded-es-xl h-20 border-t-0 border-e-0 border border-slate-100/40  bg-slate-100/30 backdrop-blur-sm' + `${weather.city ? " shadow-xl" : " ml-auto"}`}>
             <p className='text-2xl font-bold'>Clima App</p>
             <input type="text" placeholder='Ciudad' value={city} onChange={(e) => setCity(e.target.value)} className='  w-20 h-7 text-xs p-1 rounded-xl hover:shadow-lg outline-2 outline-gray-200 ' required autoFocus />
 
@@ -148,8 +173,15 @@ function App() {
               Buscar
             </button>
 
+
+
+
+
+
+
           </div>
         </div>
+
 
         {weather.city && (
           <div className='row-start-2 row-end-4 flex flex-col gap-4'>
@@ -158,18 +190,28 @@ function App() {
               <p className='mt-2'>°C</p>
             </div>
             <div className='text-start ms-4 text-white text-lg text-shadow flex flex-col gap-2'>
-              <p className='font-bold'>{weather.localTime.getHours()}:{weather.localTime.getMinutes()} H</p>
-              <p className="text-lg text-white text-shadow " >{dia[weather.localTime.getDay()]} {weather.localTime.getDate()}-{weather.localTime.getMonth() + 1}-{weather.localTime.getFullYear()}</p>
-              <div className='flex items-center bg-slate-100/60 rounded-2xl me-auto'>
+              <p className='font-bold'>{`${weather.localTime.getHours() > 12 ? weather.localTime.getHours() - 12 : weather.localTime.getHours()}:${weather.localTime.getMinutes()}`} {(weather.localTime.getHours() > 12) ? `PM` : `AM`}</p>
+              <p className="text-lg text-white text-shadow " >
+                {`${dia[weather.localTime.getDay()]} ${weather.localTime.getDate()}-${weather.localTime.getMonth() + 1}-${weather.localTime.getFullYear()}`
+                }
+              </p>
+
+              <div className='flex items-center shadow-2xl rounded-2xl me-auto backdrop-blur-md bg-slate-100/30 border border-slate-100/40'>
                 <p className='ms-2'> {weather.conditionText} </p>
-                <img src={weather.icon} alt="weather-icon" />
+                <img className='w-12' src={weather.icon} alt="weather-icon" />
               </div>
 
             </div>
           </div>
         )}
+
+        {openW.fecha1 && (<div className=' row-start-3 col-span-3 self-center h-12  bg-slate-100/20 border border-slate-100/30 px-4 my-2 backdrop-blur-md rounded-s-full shadow-2xl '>
+          <Demo1 cls=' bg-slate-100/40  border border-slate-100/80  backdrop-blur-md rounded-xl px-5 text-white text-shadow shadow-lg my-3 ' pm={pm} setPm={setPm} dia={dia} hora={hora} setHora={setHora} weather={weather} openW={openW} />
+        </div>)}
+
+
         {openW.fecha1 && (
-          <div className='row-start-4 col-span-4 justify-between border flex rounded-es-2xl rounded-ee-2xl bg-slate-100/70'>
+          <div className='row-start-4  col-span-4 justify-between border flex rounded-es-2xl rounded-ee-2xl bg-slate-100/40  backdrop-blur-md '>
             <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold border-e-2'>
               <p className='border border-x-0 border-b-2  text-lg'>{dia[openW.fecha1.getDay()]}  {openW.fecha1.getDate()}</p>
               <div className='flex justify-between px-2 '><p className=''><svg height="32px" version="1.1" viewBox="0 0 32 32" width="25px" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><title /><desc /><defs /><g fill="none" fillRule="evenodd" id="Thermometer-Hot" stroke="none" strokeWidth="1"><g id="Group" stroke="black" strokeWidth="2" transform="translate(7.000000, 2.000000)"><path d="M3,16.8026932 L3,3 C3,1.34314575 4.34314575,3.04359188e-16 6,0 C7.65685425,-3.04359188e-16 9,1.34314575 9,3 L9,16.8026932 C10.7934041,17.8401214 12,19.7791529 12,22 C12,25.3137085 9.3137085,28 6,28 C2.6862915,28 0,25.3137085 0,22 C0,19.7791529 1.20659589,17.8401214 3,16.8026932 Z" id="Combined-Shape" /><path d="M13,5 L18,5" id="Path-19" strokeLinecap="round" /><path d="M13,9 L18,9" id="Path-20" strokeLinecap="round" /><path d="M13,13 L18,13" id="Path-21" strokeLinecap="round" /></g><g fill="black" id="Group-2" transform="translate(10.000000, 12.000000)"><circle cx="3" cy="12" id="Oval" r="3" /><rect height="11" id="Rectangle-2" rx="1" width="2" x="2" y="0" /></g></g></svg></p> <p className='text-xs font-semibold mt-1 me-auto ps-7'>temp</p>
