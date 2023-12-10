@@ -61,7 +61,7 @@ function App() {
 
       if (!city.trim()) throw { message: "No existe esta ciudad" }
 
-      if (data.error || data2.error) throw { message: "No se encontró ninguna ubicación coincidente." };
+      if (data.error || data2.error || data3.error) throw { message: "No se encontró ninguna ubicación coincidente." };
 
       setWeather({
         city: data.location.name,
@@ -80,9 +80,9 @@ function App() {
 
           fecha1: new Date(data3.list[7].dt_txt),
           fecha11: new Date(data3.list[0].dt_txt),
-          fecha12: new Date(data3.list[2].dt_txt),
-          fecha13: new Date(data3.list[4].dt_txt),
-          fecha14: new Date(data3.list[6].dt_txt),
+          fecha12: new Date(data3.list[1].dt_txt),
+          fecha13: new Date(data3.list[2].dt_txt),
+          fecha14: new Date(data3.list[3].dt_txt),
 
           fecha2: new Date(data3.list[15].dt_txt),
           fecha3: new Date(data3.list[23].dt_txt),
@@ -156,7 +156,9 @@ function App() {
   }
   return (
     <>
-      <form onSubmit={handleSubmit} className={`grid grid-cols-4 grid-rows-4 gap-y-4 w-[800px] h-[600px] rounded-2xl  bg-slate-100/10 shadow-2xl `}
+      <form onSubmit={handleSubmit}
+        className={`grid grid-cols-4 grid-rows-4 gap-y-4 w-[800px] h-[600px] rounded-2xl  bg-slate-100/10 shadow-2xl `}
+
         style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1),  rgba(0, 0, 0, 0.2)), url(${fondo.background + w1})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
       >
         {weather.city && (
@@ -164,8 +166,8 @@ function App() {
           </div>
 
         )}
-        <div className='flex justify-between col-start-4 '>
-          <div className={'px-2 ms-auto pt-1 rounded-se-2xl rounded-es-xl h-20 border-t-0 border-e-0 border border-slate-100/40  bg-slate-100/30 backdrop-blur-sm' + `${weather.city ? " shadow-xl" : " ml-auto"}`}>
+        <div className={weather.city ? `flex justify-between col-start-4` : ` col-start-2 col-span-2 row-start-3  -mt-14`}>
+          <div className={weather.city ? `px-2 ms-auto pt-1 rounded-se-2xl rounded-es-xl h-20 border-t-0 border-e-0 border border-slate-100/40  bg-slate-100/30 backdrop-blur-sm` : 'w-40 mx-auto pt-3 rounded-2xl h-24  border border-slate-100/40  bg-slate-100/30 shadow-2xl' + `${weather.city ? " shadow-xl" : " ml-auto"}`}>
             <p className='text-2xl font-bold'>Clima App</p>
             <input type="text" placeholder='Ciudad' value={city} onChange={(e) => setCity(e.target.value)} className='  w-20 h-7 text-xs p-1 rounded-xl hover:shadow-lg outline-2 outline-gray-200 ' required autoFocus />
 
@@ -205,15 +207,15 @@ function App() {
           </div>
         )}
 
-        {openW.fecha1 && (<div className=' row-start-3 col-span-3 self-center h-12  bg-slate-100/20 border border-slate-100/30 px-4 my-2 backdrop-blur-md rounded-s-full shadow-2xl '>
+        {openW.fecha1 && (<div className=' row-start-3 col-span-3 self-center h-12  bg-slate-100/20 border border-slate-100/30 px-4 my-2 backdrop-blur-md rounded-s-full shadow-lg '>
           <Demo1 cls=' bg-slate-100/40  border border-slate-100/80  backdrop-blur-md rounded-xl px-3 text-white text-shadow shadow-lg my-3 ' pm={pm} setPm={setPm} dia={dia} hora={hora} setHora={setHora} weather={weather} openW={openW} />
         </div>)}
 
 
         {openW.fecha1 && (
-          <div className='row-start-4  col-span-4 justify-between border flex rounded-es-2xl rounded-ee-2xl bg-slate-100/40  backdrop-blur-md '>
-            <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold border-e-2'>
-              <p className='border border-x-0 border-b-2  text-lg'>{dia[openW.fecha1.getDay()]}  {openW.fecha1.getDate()}</p>
+          <div className='row-start-4  col-span-4 justify-between border flex rounded-es-2xl rounded-ee-2xl bg-slate-100/30  backdrop-blur-md '>
+            <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold border-e'>
+              <p className=' border-b  text-lg'>{dia[openW.fecha1.getDay()]}  {openW.fecha1.getDate()}</p>
               <div className='flex justify-between px-2 '><p className=''><svg height="32px" version="1.1" viewBox="0 0 32 32" width="25px" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><title /><desc /><defs /><g fill="none" fillRule="evenodd" id="Thermometer-Hot" stroke="none" strokeWidth="1"><g id="Group" stroke="black" strokeWidth="2" transform="translate(7.000000, 2.000000)"><path d="M3,16.8026932 L3,3 C3,1.34314575 4.34314575,3.04359188e-16 6,0 C7.65685425,-3.04359188e-16 9,1.34314575 9,3 L9,16.8026932 C10.7934041,17.8401214 12,19.7791529 12,22 C12,25.3137085 9.3137085,28 6,28 C2.6862915,28 0,25.3137085 0,22 C0,19.7791529 1.20659589,17.8401214 3,16.8026932 Z" id="Combined-Shape" /><path d="M13,5 L18,5" id="Path-19" strokeLinecap="round" /><path d="M13,9 L18,9" id="Path-20" strokeLinecap="round" /><path d="M13,13 L18,13" id="Path-21" strokeLinecap="round" /></g><g fill="black" id="Group-2" transform="translate(10.000000, 12.000000)"><circle cx="3" cy="12" id="Oval" r="3" /><rect height="11" id="Rectangle-2" rx="1" width="2" x="2" y="0" /></g></g></svg></p> <p className='text-xs font-semibold mt-1 me-auto ps-7'>temp</p>
                 <div className='flex'>
                   <p>{openW.tempC1.toFixed(1)}</p>
@@ -239,8 +241,8 @@ function App() {
               </div>
 
             </div>
-            <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold border-e-2'>
-              <p className='border border-x-0 border-b-2 text-lg'>{dia[openW.fecha2.getDay()]}  {openW.fecha2.getDate()}</p>
+            <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold border-e'>
+              <p className='border-b text-lg'>{dia[openW.fecha2.getDay()]}  {openW.fecha2.getDate()}</p>
               <div className='flex justify-between px-2 '><p className=''><svg height="32px" version="1.1" viewBox="0 0 32 32" width="25px" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><title /><desc /><defs /><g fill="none" fillRule="evenodd" id="Thermometer-Hot" stroke="none" strokeWidth="1"><g id="Group" stroke="black" strokeWidth="2" transform="translate(7.000000, 2.000000)"><path d="M3,16.8026932 L3,3 C3,1.34314575 4.34314575,3.04359188e-16 6,0 C7.65685425,-3.04359188e-16 9,1.34314575 9,3 L9,16.8026932 C10.7934041,17.8401214 12,19.7791529 12,22 C12,25.3137085 9.3137085,28 6,28 C2.6862915,28 0,25.3137085 0,22 C0,19.7791529 1.20659589,17.8401214 3,16.8026932 Z" id="Combined-Shape" /><path d="M13,5 L18,5" id="Path-19" strokeLinecap="round" /><path d="M13,9 L18,9" id="Path-20" strokeLinecap="round" /><path d="M13,13 L18,13" id="Path-21" strokeLinecap="round" /></g><g fill="black" id="Group-2" transform="translate(10.000000, 12.000000)"><circle cx="3" cy="12" id="Oval" r="3" /><rect height="11" id="Rectangle-2" rx="1" width="2" x="2" y="0" /></g></g></svg></p> <p className='text-xs font-semibold mt-1 me-auto ps-7'>temp</p>
                 <div className='flex'>
                   <p>{openW.tempC2.toFixed(1)}</p>
@@ -266,8 +268,8 @@ function App() {
               </div>
 
             </div>
-            <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold border-e-2'>
-              <p className='border border-x-0 border-b-2 text-lg'>{dia[openW.fecha3.getDay()]}  {openW.fecha3.getDate()}</p>
+            <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold border-e'>
+              <p className='border-b text-lg'>{dia[openW.fecha3.getDay()]}  {openW.fecha3.getDate()}</p>
               <div className='flex justify-between px-2 '><p className=''><svg height="32px" version="1.1" viewBox="0 0 32 32" width="25px" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><title /><desc /><defs /><g fill="none" fillRule="evenodd" id="Thermometer-Hot" stroke="none" strokeWidth="1"><g id="Group" stroke="black" strokeWidth="2" transform="translate(7.000000, 2.000000)"><path d="M3,16.8026932 L3,3 C3,1.34314575 4.34314575,3.04359188e-16 6,0 C7.65685425,-3.04359188e-16 9,1.34314575 9,3 L9,16.8026932 C10.7934041,17.8401214 12,19.7791529 12,22 C12,25.3137085 9.3137085,28 6,28 C2.6862915,28 0,25.3137085 0,22 C0,19.7791529 1.20659589,17.8401214 3,16.8026932 Z" id="Combined-Shape" /><path d="M13,5 L18,5" id="Path-19" strokeLinecap="round" /><path d="M13,9 L18,9" id="Path-20" strokeLinecap="round" /><path d="M13,13 L18,13" id="Path-21" strokeLinecap="round" /></g><g fill="black" id="Group-2" transform="translate(10.000000, 12.000000)"><circle cx="3" cy="12" id="Oval" r="3" /><rect height="11" id="Rectangle-2" rx="1" width="2" x="2" y="0" /></g></g></svg></p> <p className='text-xs font-semibold mt-1 me-auto ps-7'>temp</p>
                 <div className='flex'>
                   <p>{openW.tempC3.toFixed(1)}</p>
@@ -294,7 +296,7 @@ function App() {
 
             </div>
             <div className=' w-[200px] flex flex-col gap-1   text-white text-shadow  font-bold '>
-              <p className='border-x-0 border border-b-2 text-lg'>{dia[openW.fecha4.getDay()]}  {openW.fecha4.getDate()}</p>
+              <p className='border-b text-lg'>{dia[openW.fecha4.getDay()]}  {openW.fecha4.getDate()}</p>
               <div className='flex justify-between px-2 '><p className=''><svg height="32px" version="1.1" viewBox="0 0 32 32" width="25px" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"><title /><desc /><defs /><g fill="none" fillRule="evenodd" id="Thermometer-Hot" stroke="none" strokeWidth="1"><g id="Group" stroke="black" strokeWidth="2" transform="translate(7.000000, 2.000000)"><path d="M3,16.8026932 L3,3 C3,1.34314575 4.34314575,3.04359188e-16 6,0 C7.65685425,-3.04359188e-16 9,1.34314575 9,3 L9,16.8026932 C10.7934041,17.8401214 12,19.7791529 12,22 C12,25.3137085 9.3137085,28 6,28 C2.6862915,28 0,25.3137085 0,22 C0,19.7791529 1.20659589,17.8401214 3,16.8026932 Z" id="Combined-Shape" /><path d="M13,5 L18,5" id="Path-19" strokeLinecap="round" /><path d="M13,9 L18,9" id="Path-20" strokeLinecap="round" /><path d="M13,13 L18,13" id="Path-21" strokeLinecap="round" /></g><g fill="black" id="Group-2" transform="translate(10.000000, 12.000000)"><circle cx="3" cy="12" id="Oval" r="3" /><rect height="11" id="Rectangle-2" rx="1" width="2" x="2" y="0" /></g></g></svg></p> <p className='text-xs font-semibold mt-1 me-auto ps-7'>temp</p>
                 <div className='flex'>
                   <p>{openW.tempC4.toFixed(1)}</p>
