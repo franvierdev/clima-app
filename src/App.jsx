@@ -115,10 +115,10 @@ function App() {
 
         })
       }
+
       else {
         setOpenW("")
       }
-
 
 
 
@@ -162,7 +162,7 @@ function App() {
         style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1),  rgba(0, 0, 0, 0.2)), url(${fondo.background + w1})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
       >
         {weather.city && (
-          <div className=' inline-block mb-auto me-auto px-3 py-2  rounded-ee-2xl rounded-ss-2xl font-bold text-white border border-slate-100/40 text-3xl text-shadow shadow-xl bg-slate-100/30 backdrop-blur-sm' > <p className="">{weather.city}</p><p className='text-sm'> {weather.country}</p>
+          <div className=' inline-block mb-auto me-auto px-3 py-2  rounded-ee-2xl rounded-ss-2xl font-bold text-white border border-slate-100/40 text-3xl text-shadow shadow-xl bg-slate-100/30 backdrop-blur-md' > <p className="">{weather.city}</p><p className='text-sm'> {weather.country}</p>
           </div>
 
         )}
