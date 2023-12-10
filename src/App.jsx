@@ -79,10 +79,10 @@ function App() {
         setOpenW({
 
           fecha1: new Date(data3.list[7].dt_txt),
-          fecha11: new Date(data3.list[1].dt_txt),
-          fecha12: new Date(data3.list[3].dt_txt),
-          fecha13: new Date(data3.list[5].dt_txt),
-          fecha14: new Date(data3.list[7].dt_txt),
+          fecha11: new Date(data3.list[0].dt_txt),
+          fecha12: new Date(data3.list[2].dt_txt),
+          fecha13: new Date(data3.list[4].dt_txt),
+          fecha14: new Date(data3.list[6].dt_txt),
 
           fecha2: new Date(data3.list[15].dt_txt),
           fecha3: new Date(data3.list[23].dt_txt),
@@ -206,7 +206,7 @@ function App() {
         )}
 
         {openW.fecha1 && (<div className=' row-start-3 col-span-3 self-center h-12  bg-slate-100/20 border border-slate-100/30 px-4 my-2 backdrop-blur-md rounded-s-full shadow-2xl '>
-          <Demo1 cls=' bg-slate-100/40  border border-slate-100/80  backdrop-blur-md rounded-xl px-5 text-white text-shadow shadow-lg my-3 ' pm={pm} setPm={setPm} dia={dia} hora={hora} setHora={setHora} weather={weather} openW={openW} />
+          <Demo1 cls=' bg-slate-100/40  border border-slate-100/80  backdrop-blur-md rounded-xl px-3 text-white text-shadow shadow-lg my-3 ' pm={pm} setPm={setPm} dia={dia} hora={hora} setHora={setHora} weather={weather} openW={openW} />
         </div>)}
 
 
