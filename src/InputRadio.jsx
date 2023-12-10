@@ -109,7 +109,7 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
               minutos: ` ${openW.fecha11.getMinutes()}`,
               dia: `${dia[openW.fecha11.getDay()]} : ${openW.fecha11.getDate()}-${openW.fecha11.getMonth()}-${openW.fecha11.getFullYear()}`, humedad: openW.humedad11
             })} />
-        {input1 < 10 && input1 > 12 ? 0 : ``}{input1 > 12 ? input1 - 12 : input1} : 00 {openW.fecha12.getHours() >= 12 ? `PM` : `AM`}
+        {input1 < 10 || input1 > 12 ? 0 : ``}{input1 > 12 ? input1 - 12 : input1} : 00 {openW.fecha12.getHours() >= 12 ? `PM` : `AM`}
       </label>
 
       {hora.humedad === openW.humedad12 && (
@@ -146,7 +146,7 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
               dia: `${dia[openW.fecha12.getDay()]} : ${openW.fecha12.getDate()}-${openW.fecha12.getMonth()}-${openW.fecha12.getFullYear()}`,
               humedad: openW.humedad12
             })} />
-        {input2 < 10 && input2 > 12 ? 0 : ``}{input2 > 12 ? input2 - 12 : input2} : 00 {openW.fecha12.getHours() >= 12 ? `PM` : `AM`}
+        {(input2 < 10 || input2 > 12) ? 0 : ``}{input2 > 12 ? input2 - 12 : input2} : 00 {openW.fecha12.getHours() >= 12 ? `PM` : `AM`}
       </label>
       {hora.humedad === openW.humedad13 && (
         <div className=' grid absolute -mt-36 bg-gray-400/95 
@@ -218,7 +218,7 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
 
 
             })} />
-        {input4 < 10 && input4 > 0 ? 0 : ``}{input4 > 12 ? input4 - 12 : input4}  :  00 {input4 > 12 ? `PM` : `AM`}
+        {input4 < 10 || input4 > 12 ? 0 : ``}{input4 > 12 ? input4 - 12 : input4}  :  00 {input4 > 12 ? `PM` : `AM`}
       </label>
 
 
