@@ -13,6 +13,9 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
   var chequeado
   var input1
   var input2
+  var input3
+  var input4
+
 
   if (weather.localTime.getHours() <= 12) {
     horaFuturo = weather.localTime.getHours()
@@ -44,8 +47,6 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
   else {
     input2 = openW.fecha12.getHours() + horaFuturo
   }
-  var input3
-  var input4
 
   if ((openW.fecha13.getHours() > 12 ? openW.fecha13.getHours() - 12 : openW.fecha13.getHours()) + (horaFuturo) > 12) {
     input3 = (openW.fecha13.getHours() + horaFuturo) - 12
@@ -59,11 +60,11 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
   else {
     input4 = openW.fecha14.getHours() + horaFuturo
   }
-
-  console.log(input4)
-  console.log(horaFuturo)
-
   const asd = (e) => {
+
+    console.log(openW.fecha12.getHours())
+    console.log(horaFuturo)
+    console.log(input2)
 
 
     e.preventDefault()
@@ -75,7 +76,7 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
 
     <div className='relative flex justify-between ' onSubmit={asd}  >
 
-      {hora.checked === input1 && (
+      {hora.humedad === openW.humedad11 && (
         <div className=' grid absolute -mt-36 bg-gray-400/95 
             w-28 h-32 rounded-xl ms-3 shadow-2xl border border-gray-300 '>
           <div className='flex justify-center mt-1'>
@@ -100,15 +101,15 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
         </div>
       )}
       <label className={`` + cls}>
-        <input type='radio' className='me-2' value={input1} checked={hora.checked === input1}
+        <input type='radio' className='me-2' value={input1} checked={hora.humedad === openW.humedad11}
           onChange={(e) =>
             setHora({
               temp: openW.tempC11.toFixed(1),
               checked: input1,
               minutos: ` ${openW.fecha11.getMinutes()}`,
-              dia: `${dia[openW.fecha11.getDay()]} : ${openW.fecha11.getDate()}-${openW.fecha11.getMonth()}-${openW.fecha11.getFullYear()}`,
+              dia: `${dia[openW.fecha11.getDay()]} : ${openW.fecha11.getDate()}-${openW.fecha11.getMonth()}-${openW.fecha11.getFullYear()}`, humedad: openW.humedad11
             })} />
-        {input1 < 10 || input1 > 12 ? 0 : ``}{input1 > 12 ? input1 - 12 : input1} :  {openW.fecha11.getMinutes() < 10 ? `0${+ openW.fecha11.getMinutes()}` : openW.fecha11.getMinutes()} {openW.fecha11.getHours > 12 ? `PM` : `AM`}
+        {input1 < 10 && input1 > 12 ? 0 : ``}{input1 > 12 ? input1 - 12 : input1} : 00 {openW.fecha12.getHours() >= 12 ? `PM` : `AM`}
       </label>
 
       {hora.humedad === openW.humedad12 && (
@@ -145,9 +146,9 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
               dia: `${dia[openW.fecha12.getDay()]} : ${openW.fecha12.getDate()}-${openW.fecha12.getMonth()}-${openW.fecha12.getFullYear()}`,
               humedad: openW.humedad12
             })} />
-        {input2 < 10 || input2 > 12 ? 0 : ``}{input2 > 12 ? input2 - 12 : input2} : 00 {openW.fecha12.getHours() >= 12 ? `PM` : `AM`}
+        {input2 < 10 && input2 > 12 ? 0 : ``}{input2 > 12 ? input2 - 12 : input2} : 00 {openW.fecha12.getHours() >= 12 ? `PM` : `AM`}
       </label>
-      {hora.checked === input3 && (
+      {hora.humedad === openW.humedad13 && (
         <div className=' grid absolute -mt-36 bg-gray-400/95 
             w-28 h-32 rounded-xl ms-[300px] shadow-2xl border border-gray-300 '>
           <div className='flex justify-center mt-1'>
@@ -172,13 +173,13 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
         </div>
       )}
       <label className={`` + cls}>
-        <input type='radio' className='me-2' value={input3} checked={hora.checked === input3}
+        <input type='radio' className='me-2' value={input3} checked={hora.humedad === openW.humedad13}
           onChange={(e) =>
             setHora({
               temp: openW.tempC13.toFixed(1),
               checked: input3,
               minutos: ` ${openW.fecha13.getMinutes()}`,
-
+              humedad: openW.humedad13
             })} />
         {input3 < 10 && input3 > 0 ? 0 : ``}{input3 > 12 ? input3 - 12 : input3}  :  00 {input3 > 12 ? `PM` : `AM`}
       </label>
@@ -217,7 +218,7 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
 
 
             })} />
-        {input4 < 10 && input4 > 0 ? 0 : ``}{input4 > 12 ? input4 - 12 : input2}  :  00 {input4 > 12 ? `PM` : `AM`}
+        {input4 < 10 && input4 > 0 ? 0 : ``}{input4 > 12 ? input4 - 12 : input4}  :  00 {input4 > 12 ? `PM` : `AM`}
       </label>
 
 
