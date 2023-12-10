@@ -169,7 +169,7 @@ function App() {
         <div className={weather.city ? `flex justify-between col-start-4` : ` col-start-2 col-span-2 row-start-3  -mt-14`}>
           <div className={weather.city ? `px-2 ms-auto pt-1 rounded-se-2xl rounded-es-xl h-20 border-t-0 border-e-0 border border-slate-100/40  bg-slate-100/30 backdrop-blur-sm` : 'w-40 mx-auto pt-3 rounded-2xl h-24  border border-slate-100/40  bg-slate-100/30 shadow-2xl' + `${weather.city ? " shadow-xl" : " ml-auto"}`}>
             <p className='text-2xl font-bold'>Clima App</p>
-            <input type="text" placeholder='Ciudad' value={city} onChange={(e) => setCity(e.target.value)} className='  w-20 h-7 text-xs p-1 rounded-xl hover:shadow-lg outline-2 outline-gray-200 ' required autoFocus />
+            <input type="text" placeholder='Ciudad' value={city} onChange={(e) => setCity(e.target.value)} className={` ${weather.city ? "ms-1" : `ms-2`} w-20 h-7 text-xs p-1 rounded-xl hover:shadow-lg outline-2 outline-gray-200 `} required autoFocus />
 
             <button className=' mx-2 h-6 px-1 text-white text-xs bg-green-500/90 hover:bg-green-600 shadow-xl '>
               Buscar
