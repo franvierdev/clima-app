@@ -60,16 +60,43 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
   else {
     input4 = openW.fecha14.getHours() + horaFuturo
   }
+
+  const horaPrueba1 =
+    new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short'
+    }).format(openW.fecha1)
+
+  const horaPrueba2 =
+    new Intl.DateTimeFormat('en-US', {
+      timeStyle: 'short'
+    }).format(openW.fecha14)
+
+
+
+  const asdd = [input1, input2, input3]
+
+  asdd.some((asddd) => {
+    return asddd > horaFuturo
+  })
+  console.log(asdd.some((asddd) => {
+    return asddd > horaFuturo
+  }))
+
+  console.log(horaFuturo)
   const asd = (e) => {
 
 
 
     e.preventDefault()
     console.log(hora)
+    console.log(horaFuturo)
   }
-  console.log(openW.fecha12.getHours())
-  console.log(horaFuturo)
-  console.log(input2)
+  console.log(openW.fecha12)
+  console.log(openW.fecha11)
+  console.log(new Intl.DateTimeFormat('en-US', {
+    timeStyle: 'short'
+  }).format(openW.fecha11))
+  console.log(openW.fecha14)
 
 
   return (
@@ -109,8 +136,10 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
               minutos: ` ${openW.fecha11.getMinutes()}`,
               dia: `${dia[openW.fecha11.getDay()]} : ${openW.fecha11.getDate()}-${openW.fecha11.getMonth()}-${openW.fecha11.getFullYear()}`, humedad: openW.humedad11,
               vientos: openW.vientos11,
-            })} />
-        {input1 < 10 || input1 > 12 ? 0 : ``}{input1 > 12 ? input1 - 12 : input1} : 00 {(horaFuturo + openW.fecha11.getHours() >= 12) ? `PM` : `AM`}
+            })} />{
+          new Intl.DateTimeFormat('en-US', {
+            timeStyle: 'short'
+          }).format(openW.fecha11)}
       </label>
 
       {hora.humedad === openW.humedad12 && hora.vientos === openW.vientos12 && (
@@ -221,7 +250,7 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
               vientos: openW.vientos14
 
             })} />
-        {input4 < 10 || input4 > 12 ? 0 : ``}{input4 > 12 ? input4 - 12 : input4}  :  00 {(horaFuturo + openW.fecha14.getHours() >= 12) ? `PM` : `AM`}
+        {input4 < 10 || input4 > 12 ? 0 : ``}{input4 > 12 ? input4 - 12 : input4}  :  00 {(horaFuturo + openW.fecha1.getHours() >= 12) ? `PM` : `AM`}
       </label>
 
 
