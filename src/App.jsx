@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './App.css'
 import Demo1 from './InputRadio.jsx'
 
@@ -19,26 +19,13 @@ function App() {
     "Viernes",
     "Sabado",
   ];
-  const meses = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
+
   const [error, setError] = useState({
     error: false,
     message: "",
   });
-  const [openW, setOpenW] = useState("")
-  const [pm, setPm] = useState("")
+  const [openW, setOpenW] = useState({})
+
 
 
   const w1 = "&w=1080"
@@ -64,8 +51,10 @@ function App() {
       if (data.error || data2.error || data3.error) throw { message: "No se encontró ninguna ubicación coincidente." };
 
       setWeather({
+
         city: data.location.name,
         country: data.location.country,
+        tz: data.location.tz_id,
         temp_c: data.current.temp_c,
 
         condition: data.current.condition.code,
@@ -78,48 +67,74 @@ function App() {
 
         setOpenW({
 
-
+          prueba: data3.list,
           fecha1: new Date(data3.list[7].dt_txt),
+          fecha2: new Date(data3.list[15].dt_txt),
+          fecha3: new Date(data3.list[23].dt_txt),
+          fecha4: new Date(data3.list[31].dt_txt),
+
+          fechas1: {
+
+            fecha11: new Date(data3.list[0].dt_txt),
+            tempC11: data3.list[0].main.temp - 273.15
+          },
+          fechas2: {
+
+            fecha12: new Date(data3.list[1].dt_txt),
+            tempC12: data3.list[1].main.temp - 273.15
+          },
+          fechas3: {
+
+            fecha13: new Date(data3.list[2].dt_txt),
+            tempC13: data3.list[2].main.temp - 273.15
+          },
+          fechas4: {
+
+            fecha14: new Date(data3.list[3].dt_txt),
+            tempC14: data3.list[3].main.temp - 273.15
+          },
+
+
           fecha11: new Date(data3.list[0].dt_txt),
           fecha12: new Date(data3.list[1].dt_txt),
           fecha13: new Date(data3.list[2].dt_txt),
           fecha14: new Date(data3.list[3].dt_txt),
 
-          fecha2: new Date(data3.list[15].dt_txt),
-          fecha3: new Date(data3.list[23].dt_txt),
-          fecha4: new Date(data3.list[31].dt_txt),
           tempC1: data3.list[7].main.temp - 273.15,
-          tempC11: data3.list[1].main.temp - 273.15,
-          tempC12: data3.list[3].main.temp - 273.15,
-          tempC13: data3.list[5].main.temp - 273.15,
-          tempC14: data3.list[7].main.temp - 273.15,
           tempC2: data3.list[14].main.temp - 273.15,
           tempC3: data3.list[21].main.temp - 273.15,
           tempC4: data3.list[28].main.temp - 273.15,
-          humedad1: data3.list[7].main.humidity,
-          humedad11: data3.list[1].main.humidity,
-          humedad12: data3.list[3].main.humidity,
-          humedad13: data3.list[5].main.humidity,
-          humedad14: data3.list[7].main.humidity,
 
+
+          tempC11: data3.list[0].main.temp - 273.15,
+          tempC12: data3.list[1].main.temp - 273.15,
+          tempC13: data3.list[2].main.temp - 273.15,
+          tempC14: data3.list[3].main.temp - 273.15,
+
+
+
+          humedad1: data3.list[7].main.humidity,
           humedad2: data3.list[14].main.humidity,
           humedad3: data3.list[21].main.humidity,
           humedad4: data3.list[28].main.humidity,
+
+          humedad11: data3.list[0].main.humidity,
+          humedad12: data3.list[1].main.humidity,
+          humedad13: data3.list[2].main.humidity,
+          humedad14: data3.list[3].main.humidity,
+
           vientos1: data3.list[7].wind.speed,
-          vientos11: data3.list[1].wind.speed,
-          vientos12: data3.list[3].wind.speed,
-          vientos13: data3.list[5].wind.speed,
-          vientos14: data3.list[7].wind.speed,
           vientos2: data3.list[14].wind.speed,
           vientos3: data3.list[21].wind.speed,
           vientos4: data3.list[28].wind.speed,
 
+          vientos11: data3.list[0].wind.speed,
+          vientos12: data3.list[1].wind.speed,
+          vientos13: data3.list[2].wind.speed,
+          vientos14: data3.list[3].wind.speed,
         })
       }
 
-      else {
-        setOpenW("")
-      }
 
 
 
@@ -135,7 +150,9 @@ function App() {
 
 
     }
+
     finally {
+
 
       if (data2.results[0]) {
 
@@ -151,13 +168,12 @@ function App() {
       }
 
 
-      console.log(
-        new Intl.DateTimeFormat('en-US', {
-          timeStyle: 'short'
-        }).format(openW.fecha12))
 
     }
   }
+
+
+
   return (
     <>
       <form onSubmit={handleSubmit}
@@ -166,7 +182,7 @@ function App() {
         style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.1),  rgba(0, 0, 0, 0.2)), url(${fondo.background + w1})`, backgroundSize: 'cover', height: '600px', width: '800px' }}
       >
         {weather.city && (
-          <div className=' inline-block mb-auto me-auto px-3 py-2  rounded-ee-2xl rounded-ss-2xl font-bold text-white border border-slate-100/40 text-3xl text-shadow shadow-xl bg-slate-100/30 backdrop-blur-md' > <p className="">{weather.city}</p><p className='text-sm'> {weather.country}</p>
+          <div className='animate-rotate-x  inline-block mb-auto me-auto px-3 py-2  rounded-ee-2xl rounded-ss-2xl font-bold text-white border border-slate-100/40 text-3xl text-shadow shadow-xl bg-slate-100/30 backdrop-blur-md' > <p className="">{weather.city}</p><p className='text-sm'> {weather.country}</p>
           </div>
 
         )}
@@ -216,7 +232,7 @@ function App() {
         )}
 
         {openW.fecha1 && (<div className=' row-start-3 col-span-3 self-center h-12  bg-slate-100/20 border border-slate-100/30 px-4 my-2 backdrop-blur-md rounded-s-full shadow-lg '>
-          <Demo1 cls=' bg-slate-100/40  border border-slate-100/80  backdrop-blur-md rounded-xl px-3 text-white text-shadow shadow-lg my-3 ' pm={pm} setPm={setPm} dia={dia} hora={hora} setHora={setHora} weather={weather} openW={openW} />
+          <Demo1 cls=' bg-slate-100/30  border border-slate-100/80  backdrop-blur-md rounded-xl px-3 text-white text-shadow shadow-lg my-3 ' hora={hora} setHora={setHora} weather={weather} openW={openW} />
         </div>)}
 
 

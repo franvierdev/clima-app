@@ -1,113 +1,23 @@
-import React, { useState } from 'react';
-export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
-  const dia = [
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miercoles",
-    "Jueves",
-    "Viernes",
-    "Sabado",
-  ];
-  var horaFuturo
-  var chequeado
-  var input1
-  var input2
-  var input3
-  var input4
+import React from 'react';
+export default function App({ cls, weather, openW, hora, setHora }) {
 
-
-  if (weather.localTime.getHours() <= 12) {
-    horaFuturo = weather.localTime.getHours()
-  }
-  else {
-    horaFuturo = weather.localTime.getHours() - 12
-  }
-
-
-  if (openW.fecha11.getHours() > 12) {
-    chequeado = openW.fecha11.getHours() - 12
-  }
-  else {
-    chequeado = openW.fecha11.getHours()
-  }
-
-
-  if (chequeado + horaFuturo > 12) {
-    input1 = (chequeado + horaFuturo) - 12
-
-  }
-  else {
-    input1 = chequeado + horaFuturo
-  }
-
-  if ((openW.fecha12.getHours() > 12 ? openW.fecha12.getHours() - 12 : openW.fecha12.getHours()) + (horaFuturo) > 12) {
-    input2 = (openW.fecha12.getHours() + horaFuturo) - 12
-  }
-  else {
-    input2 = openW.fecha12.getHours() + horaFuturo
-  }
-
-  if ((openW.fecha13.getHours() > 12 ? openW.fecha13.getHours() - 12 : openW.fecha13.getHours()) + (horaFuturo) > 12) {
-    input3 = (openW.fecha13.getHours() + horaFuturo) - 12
-  }
-  else {
-    input3 = openW.fecha13.getHours() + horaFuturo
-  }
-  if ((openW.fecha14.getHours() > 12 ? openW.fecha14.getHours() - 12 : openW.fecha14.getHours()) + (horaFuturo) > 12) {
-    input4 = (openW.fecha14.getHours() + horaFuturo) - 12
-  }
-  else {
-    input4 = openW.fecha14.getHours() + horaFuturo
-  }
-
-  const horaPrueba1 =
-    new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short'
-    }).format(openW.fecha1)
-
-  const horaPrueba2 =
-    new Intl.DateTimeFormat('en-US', {
-      timeStyle: 'short'
-    }).format(openW.fecha14)
-
-
-
-  const asdd = [input1, input2, input3]
-
-  asdd.some((asddd) => {
-    return asddd > horaFuturo
-  })
-  console.log(asdd.some((asddd) => {
-    return asddd > horaFuturo
-  }))
-
-  console.log(horaFuturo)
   const asd = (e) => {
 
 
 
     e.preventDefault()
-    console.log(hora)
-    console.log(horaFuturo)
-  }
-  console.log(openW.fecha12)
-  console.log(openW.fecha11)
-  console.log(new Intl.DateTimeFormat('en-US', {
-    timeStyle: 'short'
-  }).format(openW.fecha11))
-  console.log(openW.fecha14)
 
+  }
 
   return (
 
     <div className='relative flex justify-between ' onSubmit={asd}  >
 
-      {hora.humedad === openW.humedad11 && hora.vientos === openW.vientos11 && (
-        <div className=' grid absolute -mt-36 bg-gray-400/95 
-            w-28 h-32 rounded-xl ms-3 shadow-2xl border border-gray-300 '>
+      {hora.checked === openW.fecha11 && (
+        <div className='animate-jump-in duration-75 grid absolute -mt-36 bg-gray-400/95 
+            w-28 h-32 rounded-xl  shadow-2xl border border-gray-300 '>
           <div className='flex justify-center mt-1'>
-            <p className=' text-2xl font-bold text-white text-shadow'>{hora.temp}</p>
+            <p className=' text-2xl font-bold text-white text-shadow'>{openW.tempC11.toFixed(1)}</p>
             <p className='  text-xs text-white text-shadow font-bold'>°C</p>
           </div>
           <div className='flex justify-center mt-1'>
@@ -128,25 +38,21 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
         </div>
       )}
       <label className={`` + cls}>
-        <input type='radio' className='me-2' value={input1} checked={hora.humedad === openW.humedad11 && hora.vientos === openW.vientos11}
-          onChange={(e) =>
+        <input type='radio' className='me-2' value={openW.fecha11} checked={hora.checked === openW.fecha11}
+          onChange={() =>
             setHora({
-              temp: openW.tempC11.toFixed(1),
-              checked: input1,
-              minutos: ` ${openW.fecha11.getMinutes()}`,
-              dia: `${dia[openW.fecha11.getDay()]} : ${openW.fecha11.getDate()}-${openW.fecha11.getMonth()}-${openW.fecha11.getFullYear()}`, humedad: openW.humedad11,
-              vientos: openW.vientos11,
-            })} />{
-          new Intl.DateTimeFormat('en-US', {
-            timeStyle: 'short'
-          }).format(openW.fecha11)}
+              checked: openW.fecha11,
+            })} />{new Intl.DateTimeFormat('en-US', {
+              timeStyle: 'short',
+              timeZone: `${weather.tz}`
+            }).format(openW.fecha11)}
       </label>
 
-      {hora.humedad === openW.humedad12 && hora.vientos === openW.vientos12 && (
-        <div className=' grid absolute -mt-36 bg-gray-400/95 
-            w-28 h-32 rounded-xl ms-40 shadow-2xl border border-gray-300 '>
+      {hora.checked === openW.fecha12 && (
+        <div className='animate-jump-in duration-75 grid absolute -mt-36 bg-gray-400/95 
+            w-28 h-32 rounded-xl ms-[150px] shadow-2xl border border-gray-300 '>
           <div className='flex justify-center mt-1'>
-            <p className=' text-2xl font-bold text-white text-shadow'>{hora.temp}</p>
+            <p className=' text-2xl font-bold text-white text-shadow'>{openW.tempC12.toFixed(1)}</p>
             <p className='  text-xs text-white text-shadow font-bold'>°C</p>
           </div>
           <div className='flex justify-center mt-1'>
@@ -167,23 +73,21 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
         </div>
       )}
       <label className={`` + cls}>
-        <input type='radio' className='me-2' value={input2} checked={hora.humedad === openW.humedad12 && hora.vientos === openW.vientos12}
+        <input type='radio' className='me-2' value={openW.fecha12} checked={hora.checked === openW.fecha12}
           onChange={(e) =>
             setHora({
-              temp: openW.tempC12.toFixed(1),
-              checked: input2,
-              minutos: ` ${openW.fecha12.getMinutes()}`,
-              dia: `${dia[openW.fecha12.getDay()]} : ${openW.fecha12.getDate()}-${openW.fecha12.getMonth()}-${openW.fecha12.getFullYear()}`,
-              humedad: openW.humedad12,
-              vientos: openW.vientos12
+              checked: openW.fecha12,
             })} />
-        {(input2 < 10) ? 0 : ``}{input2 > 12 ? input2 - 12 : input2} : 00 {(horaFuturo + openW.fecha12.getHours() >= 12) ? `PM` : `AM`}
+        {new Intl.DateTimeFormat('en-US', {
+          timeStyle: 'short',
+          timeZone: `${weather.tz}`
+        }).format(openW.fecha12)}
       </label>
-      {hora.humedad === openW.humedad13 && hora.vientos === openW.vientos13 && (
-        <div className=' grid absolute -mt-36 bg-gray-400/95 
+      {hora.checked === openW.fecha13 && (
+        <div className='animate-jump-in duration-75 grid absolute -mt-36 bg-gray-400/95 
             w-28 h-32 rounded-xl ms-[300px] shadow-2xl border border-gray-300 '>
           <div className='flex justify-center mt-1'>
-            <p className=' text-2xl font-bold text-white text-shadow'>{hora.temp}</p>
+            <p className=' text-2xl font-bold text-white text-shadow'>{openW.tempC13.toFixed(1)}</p>
             <p className='  text-xs text-white text-shadow font-bold'>°C</p>
           </div>
           <div className='flex justify-center mt-1'>
@@ -204,22 +108,21 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
         </div>
       )}
       <label className={`` + cls}>
-        <input type='radio' className='me-2' value={input3} checked={hora.humedad === openW.humedad13 && hora.vientos === openW.vientos13}
+        <input type='radio' className='me-2' value={openW.fecha13} checked={hora.checked === openW.fecha13}
           onChange={(e) =>
             setHora({
-              temp: openW.tempC13.toFixed(1),
-              checked: input3,
-              minutos: ` ${openW.fecha13.getMinutes()}`,
-              humedad: openW.humedad13,
-              vientos: openW.vientos13,
+              checked: openW.fecha13,
             })} />
-        {input3 < 10 && input3 > 0 ? 0 : ``}{input3 > 12 ? input3 - 12 : input3}  :  00 {(horaFuturo + openW.fecha13.getHours() >= 12) ? `PM` : `AM`}
+        {new Intl.DateTimeFormat('en-US', {
+          timeStyle: 'short',
+          timeZone: `${weather.tz}`
+        }).format(openW.fecha13)}
       </label>
-      {(hora.humedad === openW.humedad14) && hora.vientos === openW.vientos14 && (
-        <div className=' grid absolute -mt-36 bg-gray-400/95 
-            w-28 h-32 rounded-xl ms-[444px] shadow-2xl border border-gray-300 '>
+      {hora.checked === openW.fecha14 && (
+        <div className='animate-jump-in duration-75 grid absolute -mt-36 bg-gray-400/95 
+            w-28 h-32 rounded-xl ms-[455px] shadow-2xl border border-gray-300 '>
           <div className='flex justify-center mt-1'>
-            <p className=' text-2xl font-bold text-white text-shadow'>{hora.temp}</p>
+            <p className=' text-2xl font-bold text-white text-shadow'>{openW.tempC14.toFixed(1)}</p>
             <p className='  text-xs text-white text-shadow font-bold'>°C</p>
           </div>
           <div className='flex justify-center mt-1'>
@@ -240,17 +143,15 @@ export default function App({ pm, setPm, cls, weather, openW, hora, setHora }) {
         </div>
       )}
       <label className={`` + cls}>
-        <input type='radio' className='me-2' value={input4} checked={hora.humedad === openW.humedad14 && hora.vientos === openW.vientos14}
+        <input type='radio' className='me-2' value={openW.fecha14} checked={hora.checked === openW.fecha14}
           onChange={(e) =>
             setHora({
-              temp: openW.tempC14.toFixed(1),
-              checked: input4,
-              minutos: ` ${openW.fecha14.getMinutes()}`,
-              humedad: openW.humedad14,
-              vientos: openW.vientos14
-
+              checked: openW.fecha14,
             })} />
-        {input4 < 10 || input4 > 12 ? 0 : ``}{input4 > 12 ? input4 - 12 : input4}  :  00 {(horaFuturo + openW.fecha1.getHours() >= 12) ? `PM` : `AM`}
+        {new Intl.DateTimeFormat('en-US', {
+          timeStyle: 'short',
+          timeZone: `${weather.tz}`
+        }).format(openW.fecha14)}
       </label>
 
 
