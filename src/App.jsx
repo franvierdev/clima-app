@@ -59,6 +59,7 @@ function App() {
 
         condition: data.current.condition.code,
         icon: data.current.condition.icon,
+        humidity: data.current.humidity,
         conditionText: data.current.condition.text,
         localTime: new Date(data.location.localtime),
 
@@ -170,10 +171,12 @@ function App() {
 
 
     }
+
+
   }
 
 
-
+  console.log(openW.tempC11)
   return (
     <>
       <form onSubmit={handleSubmit}
@@ -188,10 +191,10 @@ function App() {
         )}
         <div className={weather.city ? `flex justify-between col-start-4` : ` col-start-2 col-span-2 row-start-3  -mt-14`}>
           <div className={weather.city ? `px-2 ms-auto pt-1 rounded-se-2xl rounded-es-xl h-20 border-t-0 border-e-0 border border-slate-100/40  bg-slate-100/30 backdrop-blur-sm` : 'w-40 mx-auto pt-3 rounded-2xl h-24  border border-slate-100/40  bg-slate-100/30 shadow-2xl' + `${weather.city ? " shadow-xl" : " ml-auto"}`}>
-            <p className='text-2xl font-bold'>Clima App</p>
+            <p className='text-2xl font-bold '>Clima App</p>
             <input type="text" placeholder='Ciudad' value={city} onChange={(e) => setCity(e.target.value)} required autoFocus className={` ${weather.city ? "ms-1" : `ms-2`} w-20 h-7 text-xs p-1 rounded-xl hover:shadow-lg outline-2 outline-gray-200 `} />
 
-            <button className=' mx-2 h-6 px-1 text-white text-xs bg-green-500/90 hover:bg-green-600 shadow-xl '>
+            <button className=' mx-2 h-6 px-1  text-white text-xs bg-green-500/90 hover:bg-green-600 shadow-xl'>
               Buscar
             </button>
 
@@ -208,9 +211,17 @@ function App() {
         {weather.city && (
           <div className='row-start-2 row-end-4 flex flex-col gap-4'>
             <div className='flex text-2xl text-white text-shadow  font-bold'>
-              <p className='text-gray-200 text-shadow text-start ms-2 text-8xl font-bold '>{weather.temp_c}</p>
+              <p className='text-gray-200 text-shadow text-start ms-2 text-7xl font-bold '>{weather.temp_c}</p>
+
               <p className='mt-2'>°C</p>
+
             </div>
+            <div className='flex'>
+              <p className='text-gray-200 text-shadow mt-1 ms-4 font-bold'>Humedad:</p>
+              <p className='text-gray-200 text-shadow text-start ms-2 text-xl font-bold '>{weather.humidity}</p>
+              <p className='text-gray-200 text-shadow mt-1 font-bold'>%</p>
+            </div>
+
             <div className='text-start ms-4 text-white text-lg text-shadow flex flex-col gap-2'>
               <p className='font-bold'>{new Intl.DateTimeFormat('en-US', {
                 timeStyle: 'short'
@@ -222,9 +233,9 @@ function App() {
                 }
               </p>
 
-              <div className='flex items-center shadow-2xl rounded-2xl me-auto backdrop-blur-md bg-slate-100/30 border border-slate-100/40'>
+              <div className='flex items-center text-sm rounded-2xl me-auto backdrop-blur-md border bg-slate-50/20 border-slate-100/20'>
                 <p className='ms-2'> {weather.conditionText} </p>
-                <img className='w-12' src={weather.icon} alt="weather-icon" />
+                <img className=' w-8 me-1 my-1' src={weather.icon} alt="weather-icon" />
               </div>
 
             </div>

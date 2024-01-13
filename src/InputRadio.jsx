@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css'
 export default function App({ cls, weather, openW, hora, setHora }) {
 
   const asd = (e) => {
@@ -37,7 +38,7 @@ export default function App({ cls, weather, openW, hora, setHora }) {
           </div>
         </div>
       )}
-      <label className={`` + cls}>
+      <label className={cls}>
         <input type='radio' className='me-2' value={openW.fecha11} checked={hora.checked === openW.fecha11}
           onChange={() =>
             setHora({
