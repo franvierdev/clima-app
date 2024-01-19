@@ -28,7 +28,7 @@ function App() {
 
 
 
-  const w1 = "&w=1080"
+  const w1 = "&w=1400"
   const handleSubmit = async (e) => {
     e.preventDefault();
     setHora("")
@@ -60,6 +60,7 @@ function App() {
         condition: data.current.condition.code,
         icon: data.current.condition.icon,
         humidity: data.current.humidity,
+        wind: data.current.wind_kph,
         conditionText: data.current.condition.text,
         localTime: new Date(data.location.localtime),
 
@@ -73,28 +74,6 @@ function App() {
           fecha2: new Date(data3.list[15].dt_txt),
           fecha3: new Date(data3.list[23].dt_txt),
           fecha4: new Date(data3.list[31].dt_txt),
-
-          fechas1: {
-
-            fecha11: new Date(data3.list[0].dt_txt),
-            tempC11: data3.list[0].main.temp - 273.15
-          },
-          fechas2: {
-
-            fecha12: new Date(data3.list[1].dt_txt),
-            tempC12: data3.list[1].main.temp - 273.15
-          },
-          fechas3: {
-
-            fecha13: new Date(data3.list[2].dt_txt),
-            tempC13: data3.list[2].main.temp - 273.15
-          },
-          fechas4: {
-
-            fecha14: new Date(data3.list[3].dt_txt),
-            tempC14: data3.list[3].main.temp - 273.15
-          },
-
 
           fecha11: new Date(data3.list[0].dt_txt),
           fecha12: new Date(data3.list[1].dt_txt),
@@ -176,7 +155,7 @@ function App() {
   }
 
 
-  console.log(openW.tempC11)
+
   return (
     <>
       <form onSubmit={handleSubmit}
@@ -209,29 +188,34 @@ function App() {
 
 
         {weather.city && (
-          <div className='row-start-2 row-end-4 flex flex-col gap-4'>
+          <div className='row-start-2 row-end-4 flex flex-col gap-2 me-4 backdrop-blur-sm border border-slate-50/10 rounded-e-xl ps-2 bg-slate-50/20 shadow-sm'>
             <div className='flex text-2xl text-white text-shadow  font-bold'>
-              <p className='text-gray-200 text-shadow text-start ms-2 text-7xl font-bold '>{weather.temp_c}</p>
+              <p className='text-gray-200 text-shadow text-start  text-6xl font-bold '>{weather.temp_c}</p>
 
               <p className='mt-2'>°C</p>
 
             </div>
             <div className='flex'>
-              <p className='text-gray-200 text-shadow mt-1 ms-4 font-bold'>Humedad:</p>
-              <p className='text-gray-200 text-shadow text-start ms-2 text-xl font-bold '>{weather.humidity}</p>
-              <p className='text-gray-200 text-shadow mt-1 font-bold'>%</p>
+              <p className='text-gray-200 text-shadow  ms-2 font-bold'>Humedad:</p>
+              <p className='text-gray-200 text-shadow text-start ms-2  font-bold '>{weather.humidity}</p>
+              <p className='text-gray-200 text-shadow text-xs font-bold'>%</p>
+            </div>
+            <div className='flex'>
+              <p className='text-gray-200 text-shadow  ms-2 font-bold'>Vientos:</p>
+              <p className='text-gray-200 text-shadow text-start ms-2  font-bold '>{weather.wind} </p>
+              <p className='text-gray-200 text-shadow text-xs font-bold'> Km/h</p>
             </div>
 
-            <div className='text-start ms-4 text-white text-lg text-shadow flex flex-col gap-2'>
-              <p className='font-bold'>{new Intl.DateTimeFormat('en-US', {
-                timeStyle: 'short'
-              }).format(weather.localTime)}</p>
+            <div className='text-start ms-2 text-white text-lg text-shadow mt-6 mx-2 flex flex-col gap-2'>
               <p className="text-sm text-white text-shadow " >
                 {new Intl.DateTimeFormat('es', {
                   dateStyle: 'full',
                 }).format(weather.localTime)
                 }
               </p>
+              <p className='font-bold'>{new Intl.DateTimeFormat('en-US', {
+                timeStyle: 'short'
+              }).format(weather.localTime)}</p>
 
               <div className='flex items-center text-sm rounded-2xl me-auto backdrop-blur-md border bg-slate-50/20 border-slate-100/20'>
                 <p className='ms-2'> {weather.conditionText} </p>

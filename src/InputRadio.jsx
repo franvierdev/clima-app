@@ -18,7 +18,7 @@ export default function App({ cls, weather, openW, hora, setHora }) {
         <div className='animate-jump-in duration-75 grid absolute -mt-36 bg-gray-400/95 
             w-28 h-32 rounded-xl  shadow-2xl border border-gray-300 '>
           <div className='flex justify-center mt-1'>
-            <p className=' text-2xl font-bold text-white text-shadow'>{openW.tempC11.toFixed(1)}</p>
+            <p className=' text-2xl font-bold text-white text-shadow'>{(openW.prueba[0].main.temp - 273.15).toFixed(1)}</p>
             <p className='  text-xs text-white text-shadow font-bold'>°C</p>
           </div>
           <div className='flex justify-center mt-1'>
@@ -49,6 +49,7 @@ export default function App({ cls, weather, openW, hora, setHora }) {
             }).format(openW.fecha11)}
       </label>
 
+
       {hora.checked === openW.fecha12 && (
         <div className='animate-jump-in duration-75 grid absolute -mt-36 bg-gray-400/95 
             w-28 h-32 rounded-xl ms-[150px] shadow-2xl border border-gray-300 '>
@@ -63,9 +64,9 @@ export default function App({ cls, weather, openW, hora, setHora }) {
             <p className='  text-xs text-white text-shadow font-bold'>%</p>
           </div>
           <div className='flex justify-center mt-1'>
-            <p className=' text-[10px] font-bold text-white text-shadow me-2'>Vientos</p>
-            <p className='  text-[10px] font-bold text-white text-shadow'>{openW.vientos12}</p>
-            <p className='   text-[8px] text-white text-shadow '>km/h</p>
+            <p className='text-[10px] font-bold text-white text-shadow me-2'>Vientos</p>
+            <p className='text-[10px] font-bold text-white text-shadow'>{openW.vientos12}</p>
+            <p className='text-[8px] text-white text-shadow '>km/h</p>
           </div>
           <div className='flex justify-center mt-1'>
             <p className=' text-xs font-bold text-white text-shadow'>{openW.fecha12.getDate()} - {openW.fecha12.getMonth() + 1} - {openW.fecha12.getFullYear()}</p>
